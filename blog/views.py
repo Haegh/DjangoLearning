@@ -1,6 +1,8 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse, Http404
 from datetime import datetime
+from .models import Article
+from .forms import ContactForm
 
 
 def home(request):
@@ -46,3 +48,27 @@ def addition(request, nombre1, nombre2):
     total = nombre1 + nombre2
 
     return render(request, 'blog/addition.html', locals())
+
+
+def accueil(request):
+    """ Afficher tous les articles """
+    articles = Article.objects.all()
+    return render(request, 'blog/accueil.html', {'derniers_articles': articles})
+
+
+def lire(request, id, slug):
+    """ Afficher un article complet """
+    article = get_object_or_404(Article, id=id, slug=slug)
+    return render(request, 'blog/lire.html', {'article': article})
+
+
+def contact(request):
+    form = ContactForm(request.POST or None)
+    if form.is_valid():
+        sujet = form.cleaned_data['sujet']
+        message = form.cleaned_data['message']
+        envoyeur = form.cleaned_data['envoyeur']
+        renvoi = form.cleaned_data['renvoi']
+        envoi = True
+
+    return render(request, 'blog/contact.html', locals())
