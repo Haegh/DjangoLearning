@@ -29,16 +29,10 @@ class Categorie(models.Model):
         return self.nom
 
 
-class Moteur(models.Model):
-    nom = models.CharField(max_length=25)
+class Contact(models.Model):
+    nom = models.CharField(max_length=255)
+    adresse = models.TextField()
+    photo = models.ImageField(upload_to="photos/")
 
     def __str__(self):
-        return self.nom
-
-
-class Voiture(models.Model):
-    nom = models.CharField(max_length=25)
-    moteur = models.OneToOneField(Moteur, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.nom
+        return  self.nom

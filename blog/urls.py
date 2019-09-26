@@ -10,6 +10,7 @@ urlpatterns = [
     #path('date', views.date_actuelle),
     #path('addition/<int:nombre1>/<int:nombre2>', views.addition),
     path('', views.accueil, name='accueil'),
-    path('articles/<int:id>-<slug:slug>$', views.lire, name='lire'),
+    path('articles/<int:id>-<slug:slug>', views.lire, name='lire'),
     path('contact/', views.contact, name='contact'),
+    path('contact2/', views.nouveau_contact, name='nouveau_contact'),
 ]
